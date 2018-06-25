@@ -1,0 +1,4 @@
+edited file Board.java line 103
+fixed bug for fetching the id in delete player method as uuid is not a string -
+initial -   if(player.getString("uuid").equals(playerUuid.toString()))
+changed to - if(player.get("uuid").toString().equals(playerUuid.toString()))
