@@ -127,14 +127,9 @@ Board board;
 			int currentPosition = (int)board.data.getJSONArray("players").getJSONObject(i).get("position");
 			JSONObject response = board.rollDice(playerUuid);
 			int diceValue = response.getInt("dice");
-			int type = (int) board.data.getJSONArray("steps").getJSONObject(currentPosition+diceValue).get("type");
-			int newPosition = (int)board.data.getJSONArray("players").getJSONObject(i).get("position");
-			if(type==0)
-				assertThat(response.get("message").equals("Player moved to " + newPosition));
-			else if(type==1)
-				assertThat(response.get("message").equals("Player was bit by a snake, moved back to " + newPosition));
-			else if(type==2)
-				assertThat(response.get("message").equals("Player climbed a ladder, moved to " + newPosition));
+			int updated_currentPosition = (int)board.data.getJSONArray("players").getJSONObject(i).get("position");
+			int newPosition = (int) board.data.getJSONArray("steps").getJSONObject(currentPosition+diceValue).get("target");
+			assertEquals(updated_currentPosition, newPosition);
 		}
 	}
 }
